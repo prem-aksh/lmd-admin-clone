@@ -1,25 +1,25 @@
-// components/AuthForm.js
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
-export default function AuthForm({ role = 'admin' }) {
+export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Login as ${role}: ${email}, ${password}`);
-    router.push('/');
+    router.push('/admin/panel'); 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-8 mt-20 mx-auto rounded-xl shadow-lg space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md w-full bg-white p-8 mt-20 mx-auto rounded-xl shadow-lg space-y-6"
+    >
       <h2 className="text-2xl font-bold text-green-700 text-center">
-        Login to {role} panel
+        Login to admin panel
       </h2>
 
       <div className="space-y-1">
@@ -48,23 +48,10 @@ export default function AuthForm({ role = 'admin' }) {
 
       <button
         type="submit"
-        className="w-full bg-green-600  py-3 rounded hover:bg-green-700 transition"
+        className="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700 transition"
       >
         Login
       </button>
-
-      {/* Show sign-up only for seller */}
-      {role === 'seller' && (
-        <p className="text-sm text-center text-gray-600">
-          Not a user?{' '}
-          <Link
-            href="/seller/register"
-            className="text-green-600 font-medium hover:underline"
-          >
-            Sign up here
-          </Link>
-        </p>
-      )}
     </form>
   );
 }
