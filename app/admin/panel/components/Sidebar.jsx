@@ -10,12 +10,30 @@ import {
   CreditCard,
   FileText,
   ChevronDown,
+  ChevronUp,
+  PackageOpen,
+  Plus,
+  List,
+  Archive,
+  Upload,
+  RefreshCcw,
+  Percent,
+  BadgePercent,
+  BarChart,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function Sidebar() {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [openMenus, setOpenMenus] = useState({
+    products: true,
+    reports: false,
+  });
+
+  const toggleDropdown = (key) => {
+    setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const menuItems = [
     { label: "Dashboard", icon: LayoutDashboard, value: "dashboard" },
@@ -25,9 +43,16 @@ export default function Sidebar() {
       label: "Products",
       icon: Boxes,
       value: "products",
+      dropdownKey: "products",
       children: [
-        { label: "Product List", value: "products" },
-        { label: "Add Product", value: "add-product" }, // Optional
+        { label: "Add Product", value: "add-product", icon: Plus },
+        { label: "Manage Products", value: "manage-products", icon: List },
+        { label: "Units", value: "units", icon: PackageOpen },
+        { label: "Media", value: "media", icon: Archive },
+        { label: "Bulk Upload", value: "bulk-upload", icon: Upload },
+        { label: "Bulk Update", value: "bulk-update", icon: RefreshCcw },
+        { label: "Taxes", value: "taxes", icon: Percent },
+        { label: "Brands", value: "brands", icon: BadgePercent },
       ],
     },
     { label: "Stock Management", icon: Layers, value: "stock" },
@@ -37,39 +62,53 @@ export default function Sidebar() {
       label: "Reports",
       icon: FileText,
       value: "reports",
+      dropdownKey: "reports",
       children: [
-        { label: "Sales", value: "reports" },
-        { label: "Performance", value: "performance-report" }, // Optional
+        { label: "Product Sales Report", value: "product-sales", icon: BarChart },
+        { label: "Sales Reports", value: "sales-reports", icon: FileText },
       ],
     },
   ];
 
   return (
-    <aside className="w-64 bg-white border-r p-4">
+    <aside className="w-64 bg-white border-r p-4 overflow-y-auto h-screen">
       <div className="flex items-center mb-8">
-        {/* <img src="/assets/logo.svg" alt="eGrocer" className="w-10 h-10" /> */}
         <span className="text-2xl font-semibold ml-2">eGrocer</span>
       </div>
+
       <nav className="space-y-2">
         {menuItems.map((item) => (
           <div key={item.value}>
             <Button
               variant={activeTab === item.value ? "default" : "ghost"}
               className="w-full justify-start gap-2"
-              onClick={() => setActiveTab(item.value)}
+              onClick={() => {
+                setActiveTab(item.value);
+                if (item.dropdownKey) toggleDropdown(item.dropdownKey);
+              }}
             >
               <item.icon className="w-5 h-5" />
               {item.label}
-              {item.children && <ChevronDown className="ml-auto h-4 w-4" />}
+              {item.children &&
+                (openMenus[item.dropdownKey] ? (
+                  <ChevronUp className="ml-auto h-4 w-4" />
+                ) : (
+                  <ChevronDown className="ml-auto h-4 w-4" />
+                ))}
             </Button>
-            {activeTab === item.value &&
-              item.children?.map((child) => (
+
+            {item.children &&
+              openMenus[item.dropdownKey] &&
+              item.children.map((child) => (
                 <button
                   key={child.value}
                   onClick={() => setActiveTab(child.value)}
-                  className="ml-6 text-sm text-left text-muted-foreground hover:text-primary"
+                  className={`ml-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-primary py-1 ${
+                    activeTab === child.value ? "text-primary font-medium" : ""
+                  }`}
                 >
-                  • {child.label}
+                  <child.icon className="w-4 h-4" />
+                  {child.label}
                 </button>
               ))}
           </div>
