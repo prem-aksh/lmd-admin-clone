@@ -11,8 +11,8 @@ export default function SellerLoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Login as seller: ${email}, ${password}`);
-    router.push('/seller/panel'); // Redirect to seller panel (if you have it)
+    // alert(`Login as seller: ${email}, ${password}`);
+    router.push('/seller/panel'); 
   };
 
   return (

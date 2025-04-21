@@ -34,7 +34,6 @@ export default function SellerRegisterPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Seller Registered!\n${JSON.stringify(formData, null, 2)}`);
-    // Replace alert with actual API call logic
   };
 
   return (
