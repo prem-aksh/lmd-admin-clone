@@ -16,6 +16,7 @@ export default function SellerLoginPage() {
   };
 
   return (
+    <div className="min-h-screen flex items-center justify-center bg-white text-gray-900">
     <form
       onSubmit={handleSubmit}
       className="max-w-md w-full bg-white p-8 mt-20 mx-auto rounded-xl shadow-lg space-y-6"
@@ -31,7 +32,7 @@ export default function SellerLoginPage() {
           placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full border border-gray-300 p-3 rounded bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
           required
         />
       </div>
@@ -65,5 +66,6 @@ export default function SellerLoginPage() {
         </Link>
       </p>
     </form>
+    </div>
   );
 }

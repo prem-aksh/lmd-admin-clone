@@ -6,7 +6,6 @@ import {
   Target,
   Share2,
   Layers3,
-  Landmark,
   MapPin,
 } from "lucide-react";
 import PieChart from "./dashboard/pie";
@@ -74,31 +73,31 @@ const currentMonth = new Date().toLocaleString("default", { month: "long" });
 
 export default function DashboardContent() {
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold text-sky-900 mb-6">Dashboard</h2>
+    <div className="p-6 text-sky-900 dark:text-white">
+      <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
 
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Left Side: Cards */}
+        {/* Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 max-w-[1100px] w-full">
           {cards.map((card, idx) => (
             <div
               key={idx}
-              className="bg-white shadow-md rounded-lg p-3 max-w-[250px] w-full flex flex-col justify-center items-center text-center"
+              className="bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-lg p-3 max-w-[250px] w-full flex flex-col justify-center items-center text-center"
             >
               <div
                 className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${card.color}`}
               >
                 {card.icon}
               </div>
-              <div className="text-xl font-bold text-sky-900">{card.value}</div>
-              <div className="text-sky-600">{card.label}</div>
+              <div className="text-xl font-bold">{card.value}</div>
+              <div className="text-sky-600 dark:text-sky-300">{card.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Right Side: Pie Chart */}
-        <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-[420px]">
-          <h3 className="text-lg font-bold text-sky-900 mb-2">
+        {/* Pie Chart */}
+        <div className="bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-lg p-4 w-full lg:w-[420px]">
+          <h3 className="text-lg font-bold mb-2">
             Categorywise Product Count
           </h3>
           <PieChart />
@@ -106,11 +105,11 @@ export default function DashboardContent() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 mt-8">
-        {/* Left Side: Bar Chart */}
-        <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-[70%]">
-          <h3 className="text-lg font-bold text-sky-900 mb-2">
+        {/* Bar Chart */}
+        <div className="bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-lg p-4 w-full lg:w-[70%]">
+          <h3 className="text-lg font-bold mb-2">
             Weekly Sales{" "}
-            <span className="text-sm font-normal text-sky-700">
+            <span className="text-sm font-normal text-sky-700 dark:text-sky-300">
               Total Sale In Last Week (Month: {currentMonth})
             </span>
           </h3>
@@ -118,20 +117,16 @@ export default function DashboardContent() {
           <BarChart />
         </div>
 
-        {/* Right Side: Info Cards */}
+        {/* Bottom Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full lg:w-[30%]">
           {bottomCards.map((card, idx) => (
             <div
               key={idx}
-              className="bg-white shadow-md rounded-lg p-4 text-center flex flex-col items-center justify-center"
+              className="bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-lg p-4 text-center flex flex-col items-center justify-center"
             >
-              <div className="text-lg font-semibold text-sky-900 mb-1">
-                {card.label}
-              </div>
-              <div className="text-2xl font-bold text-sky-900 mb-2">
-                {card.value}
-              </div>
-              <button className="bg-blue-50 text-emerald-500 font-semibold text-lg px-10 py-2 rounded-md hover:underline transition">
+              <div className="text-lg font-semibold mb-1">{card.label}</div>
+              <div className="text-2xl font-bold mb-2">{card.value}</div>
+              <button className="bg-blue-50 dark:bg-gray-700 text-emerald-500 font-semibold text-lg px-10 py-2 rounded-md hover:underline transition">
                 More Info
               </button>
             </div>

@@ -71,7 +71,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r p-4 overflow-y-auto h-screen">
+    <aside className="w-64 bg-white dark:bg-gray-900 text-gray-800 dark:text-white border-r dark:border-gray-700 p-4 overflow-y-auto h-screen">
       <div className="flex items-center mb-8">
         <span className="text-2xl font-semibold ml-2">eGrocer</span>
       </div>
@@ -80,8 +80,12 @@ export default function Sidebar() {
         {menuItems.map((item) => (
           <div key={item.value}>
             <Button
-              variant={activeTab === item.value ? "default" : "ghost"}
-              className="w-full justify-start gap-2"
+              variant="ghost"
+              className={`w-full justify-start gap-2 rounded text-sm transition-colors ${
+                activeTab === item.value
+                  ? "bg-gray-100 dark:bg-gray-800 text-primary dark:text-white"
+                  : "text-gray-700 dark:text-gray-300"
+              } hover:bg-gray-100 dark:hover:bg-gray-800`}
               onClick={() => {
                 setActiveTab(item.value);
                 if (item.dropdownKey) toggleDropdown(item.dropdownKey);
@@ -103,9 +107,12 @@ export default function Sidebar() {
                 <button
                   key={child.value}
                   onClick={() => setActiveTab(child.value)}
-                  className={`ml-6 flex items-center gap-2 text-sm text-muted-foreground hover:text-primary py-1 ${
-                    activeTab === child.value ? "text-primary font-medium" : ""
-                  }`}
+                  className={`ml-6 flex items-center gap-2 text-sm px-2 py-1 rounded transition-colors w-full
+                    ${
+                      activeTab === child.value
+                        ? "text-primary dark:text-white bg-gray-100 dark:bg-gray-800 font-medium"
+                        : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
                 >
                   <child.icon className="w-4 h-4" />
                   {child.label}
